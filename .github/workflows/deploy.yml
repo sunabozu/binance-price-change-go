@@ -7,11 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: uploading it to where it belongs
-    - uses: actions/checkout@v2
-    - uses: actions/setup-go@v2
+      uses: actions/checkout@v2
+      uses: actions/setup-go@v2
       with:
         go-version: '^1.14.4'
-    - run: go build
-    - run: echo "${{ secrets.GCE_KEY }}" > key.txt
-    - run: chmod 600 key.txt
-    - run: rsync -zaP -e "ssh -i key.txt -o StrictHostKeyChecking=no" ${{ secrets.PROJ_NAME }} troorl@${{ secrets.GCE_HOST }}:~/${{ secrets.PROJ_NAME }}/
+      run: go build
+      run: echo "${{ secrets.GCE_KEY }}" > key.txt
+      run: chmod 600 key.txt
+      run: rsync -zaP -e "ssh -i key.txt -o StrictHostKeyChecking=no" ${{ secrets.PROJ_NAME }} troorl@${{ secrets.GCE_HOST }}:~/${{ secrets.PROJ_NAME }}/
