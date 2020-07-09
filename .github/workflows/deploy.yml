@@ -12,6 +12,6 @@ jobs:
         go-version: '^1.14.4'
     - run: go build
     - run: echo "${{ secrets.GCE_KEY }}" > key.txt
+    - run: ls
     - run: chmod 600 key.txt
-    - run: cat key.txt
-    - run: rsync -zaP -e "ssh -i key.txt" ${{ secrets.PROJ_NAME }} troorl@okay-boomer.ml:~/${{ secrets.PROJ_NAME }}/
+    - run: rsync -zaP -e "ssh -i key.txt" binance-price-change-go troorl@okay-boomer.ml:~/binance-price-change-go/
