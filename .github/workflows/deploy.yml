@@ -18,5 +18,4 @@ jobs:
           host: ${{ secrets.GCE_HOST }}
           username: troorl
           key: ${{ secrets.GCE_KEY }}
-          script: |
-          sudo systemctl restart binance-price-change-go
+          script: sudo systemctl restart ${{ secrets.PROJ_NAME }}
