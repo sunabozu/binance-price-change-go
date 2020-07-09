@@ -6,7 +6,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - name: uploading it to where it belongs
+      name: uploading it to where it belongs
       uses: actions/checkout@v2
       uses: actions/setup-go@v2
       with:
