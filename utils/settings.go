@@ -35,7 +35,7 @@ func LoadKeys(filePath string) (*Env, error) {
 	var envDocument EnvDocument
 	json.Unmarshal(byteValue, &envDocument)
 
-	log.Printf("%+v\n", envDocument)
+	// log.Printf("%+v\n", envDocument)
 
 	return &envDocument.Env, nil
 }

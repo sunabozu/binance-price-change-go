@@ -138,13 +138,12 @@ func processLastPrice(keys *utils.Env, lastPriceChan <-chan float64, interval in
 	lastPush := time.Time{} // new Date().getTime()
 
 	for lastPrice := range lastPriceChan {
-		log.Printf("Current delta: %f", *deltaThreshold)
 		prices = append(prices, lastPrice)
 
 		// remove the 1st element if the slice is too long
 		if len(prices) > elementsInterval {
 			prices = prices[1:]
-			log.Println("removing the first element...")
+			// log.Println("removing the first element...")
 		}
 		// log.Printf("Number of the prices: %d\n", len(prices))
 		// log.Printf("%+v\n", prices)
@@ -169,7 +168,7 @@ func processLastPrice(keys *utils.Env, lastPriceChan <-chan float64, interval in
 
 		// check if pushed recently
 		timeDifference := time.Now().Sub(lastPush).Seconds() < float64(changeTime)
-		log.Println(timeDifference)
+		// log.Println(timeDifference)
 		if lastPush != (time.Time{}) && timeDifference {
 			log.Println("already pushed recently... 😂")
 			continue
