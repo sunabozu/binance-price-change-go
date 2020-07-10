@@ -47,7 +47,8 @@ func main() {
 	go retreiveLastPrice(client, lastPriceChan, interval)
 	go processLastPrice(keys, lastPriceChan, interval, &deltaThreshold)
 
-	log.Println("starting the http server...")
+	webPort := 8082
+	log.Printf("starting the http server on port %d...\n", webPort)
 
 	// root handler
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -78,7 +79,7 @@ func main() {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 	})
 
-	http.ListenAndServe(":8082", nil)
+	http.ListenAndServe(":"+strconv.FormatInt(int64(webPort), 10), nil)
 	// select {}
 }
 
