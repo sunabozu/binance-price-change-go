@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 )
@@ -54,4 +56,22 @@ func GetParentPath() (string, error) {
 	}
 
 	return filepath.Dir(filepath.Dir(execPath)), nil
+}
+
+// send a push notification
+func SendPushNotification(keys *Env, text string) {
+	formData := url.Values{
+		"app_key":     {keys.PushedKey},
+		"app_secret":  {keys.PushedSecret},
+		"target_type": {"app"},
+		"content":     {text},
+	}
+
+	resp, err := http.PostForm("https://api.pushed.co/1/push", formData)
+
+	if err != nil {
+		log.Println(err)
+	} else {
+		log.Println(resp)
+	}
 }

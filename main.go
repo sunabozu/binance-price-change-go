@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"net/url"
 	"os"
 	"strconv"
 	"time"
@@ -180,7 +179,7 @@ func processLastPrice(keys *utils.Env, lastPriceChan <-chan float64, interval in
 		// proceed with pushing a notification
 		log.Println("pushing now... 😎")
 		textToPush := fmt.Sprintf("🔥 Bitcoin dropped by %.2f to %.0f in the past %d minute(s)! 🔥", *deltaThreshold, lastPrice, changeTime/60)
-		go sendPushNotification(keys, textToPush)
+		go utils.SendPushNotification(keys, textToPush)
 	}
 }
 
@@ -212,22 +211,5 @@ func saveDelta(deltaChan chan float64) {
 
 		f.Sync()
 		defer f.Close()
-	}
-}
-
-func sendPushNotification(keys *utils.Env, text string) {
-	formData := url.Values{
-		"app_key":     {keys.PushedKey},
-		"app_secret":  {keys.PushedSecret},
-		"target_type": {"app"},
-		"content":     {text},
-	}
-
-	resp, err := http.PostForm("https://api.pushed.co/1/push", formData)
-
-	if err != nil {
-		log.Println(err)
-	} else {
-		log.Println(resp)
 	}
 }
