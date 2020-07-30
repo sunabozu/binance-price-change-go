@@ -178,7 +178,7 @@ func processLastPrice(keys *utils.Env, lastPriceChan <-chan float64, interval in
 
 		// proceed with pushing a notification
 		log.Println("pushing now... 😎")
-		textToPush := fmt.Sprintf("🔥 Bitcoin dropped by %.2f to %.0f in the past %d minute(s)! 🔥", *deltaThreshold, lastPrice, changeTime/60)
+		textToPush := fmt.Sprintf("🔥 Bitcoin dropped by %.2f to %.0f in the past %d minute(s)! 🔥", delta, lastPrice, changeTime/60)
 		go utils.SendPushNotification(keys, textToPush)
 	}
 }
